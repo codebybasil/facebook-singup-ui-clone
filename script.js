@@ -1,52 +1,69 @@
-// Facebook Signup Validation
-// Reading field values with conditions
+// Dashboard aur login ka links
+var dashboardLink = "https://codebybasil.github.io/facebook-clone-ui/";
+var loginLink = "https://codebybasil.github.io/facebook-login-ui-clone/";
 
-let signupButton = document.querySelector(".btn-sign");
+// Sign up button
+var signupButton = document.querySelector(".btn-sign");
 
+// Sab fields ki values lena
 signupButton.addEventListener("click", function () {
-  // Reading field values
-  let firstName = document.getElementById("first-name").value;
-  let surName = document.getElementById("surname").value;
-  let day = document.getElementById("day").value;
-  let month = document.getElementById("month").value;
-  let year = document.getElementById("year").value;
-  let mobileEmail = document.getElementById("input-mobile").value;
-  let password = document.getElementById("input-password").value;
+  var firstName = document.getElementById("first-name").value;
+  var surname = document.getElementById("surname").value;
+  var day = document.getElementById("day").value;
+  var month = document.getElementById("month").value;
+  var year = document.getElementById("year").value;
+  var gender = document.querySelector('input[name="gender"]:checked');
+  var mobile = document.getElementById("input-mobile").value;
+  var password = document.getElementById("input-password").value;
 
-  // Reading gender
-  let gender = "";
-  if (document.getElementById("female").checked) gender = "Female";
-  if (document.getElementById("male").checked) gender = "Male";
-  if (document.getElementById("custom").checked) gender = "Custom";
-
-  // Conditions checking
-  if (firstName === "") {
-    alert("First name is required");
-  } else if (surName === "") {
-    alert("Surname is required");
-  } else if (day === "" || month === "" || year === "") {
-    alert("Please select complete date of birth");
-  } else if (gender === "") {
-    alert("Please select your gender");
-  } else if (mobileEmail === "") {
-    alert("Mobile number or email is required");
-  } else if (password === "") {
-    alert("Password is required");
-  } else if (password.length < 6) {
-    alert("Password must be at least 6 characters");
-  } else {
-    alert(
-      "✅ Welcome " +
-        firstName +
-        " " +
-        surName +
-        "! Account created successfully!",
-    );
-    console.log("Signup Data:", {
-      name: firstName + " " + surName,
-      dob: day + " " + month + " " + year,
-      gender: gender,
-      contact: mobileEmail,
-    });
+  // Name check
+  if (firstName === "" || surname === "") {
+    alert("Enter your full name!");
+    return;
   }
+
+  // Date of birth check
+  if (day === "" || month === "" || year === "") {
+    alert("Enter the date of birth in full!");
+    return;
+  }
+
+  // Gender check
+  if (!gender) {
+    alert("Select Gander!");
+    return;
+  }
+
+  // Mobile/Email check
+  if (mobile === "") {
+    alert("Enter your mobile number or email address!");
+    return;
+  }
+
+  // Email format check @ hona chahiye
+  if (mobile.includes("@") && !mobile.includes(".")) {
+    alert("Write the email in the correct format! Example: abc@gmail.com");
+    return;
+  }
+
+  // Password check
+  if (password === "") {
+    alert("Fill in the password!");
+    return;
+  }
+
+  // Password length check at least 6 characters
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters long.!");
+    return;
+  }
+
+  // Dashboard par redirect
+  alert("Account created successfully! Welcome " + firstName + surname + "!");
+  window.location.href = dashboardLink;
+
+  // refresh rokta hai
+  signupButton.addEventListener("click", function (e) {
+    e.preventDefault();
+  });
 });
